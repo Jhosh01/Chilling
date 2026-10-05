@@ -4,6 +4,7 @@ const gameContent = document.getElementById("gameContent");
 let gameMode = "";
 let currentUser = "";
 let currentPartner = "";
+let currentPrediction = {};
 
 
 // ==========================================
@@ -35,8 +36,6 @@ function startMusic() {
 
             musicStarted = true;
 
-            console.log("Background music started.");
-
         })
         .catch(() => {
 
@@ -45,14 +44,8 @@ function startMusic() {
         });
 }
 
+window.addEventListener("load", startMusic);
 
-// Try when page opens
-window.addEventListener("load", () => {
-    startMusic();
-});
-
-
-// Start after interaction if browser blocks autoplay
 document.addEventListener("click", startMusic, { once: true });
 document.addEventListener("touchstart", startMusic, { once: true });
 document.addEventListener("keydown", startMusic, { once: true });
@@ -149,7 +142,7 @@ function startGame(mode) {
                     class="continue-btn"
                     onclick="beginPrediction()"
                 >
-                    Predict Our Future
+                    Predict Our Future →
                 </button>
 
             </div>
@@ -174,8 +167,7 @@ function beginPrediction() {
         return;
     }
 
-    currentUser =
-        playerInput.value.trim();
+    currentUser = playerInput.value.trim();
 
 
     if (gameMode === "couple") {
@@ -188,7 +180,7 @@ function beginPrediction() {
             partnerInput.value.trim() === ""
         ) {
 
-            alert("We need your partner's name too.");
+            alert("We need your partner's name too 😂");
 
             return;
         }
@@ -278,7 +270,9 @@ async function runUniverseScan() {
         "The stars are currently discussing you.",
         "We found something interesting.",
         "Almost there.",
-        "Your destiny has surprisingly good WiFi."
+        "Your destiny has surprisingly good WiFi.",
+        "Someone in your future is already disappointed in you.",
+        "The universe just laughed. We don't know why."
 
     ];
 
@@ -309,11 +303,11 @@ async function runUniverseScan() {
             percentage + "%";
 
 
-        await wait(650);
+        await wait(500);
     }
 
 
-    await wait(500);
+    await wait(400);
 
 
     if (gameMode === "single") {
@@ -329,7 +323,7 @@ async function runUniverseScan() {
 
 
 // ==========================================
-// SINGLE FUTURE DATA
+// CAREERS
 // ==========================================
 
 const careers = [
@@ -340,40 +334,150 @@ const careers = [
     "Content Creator",
     "Creative Director",
     "DJ",
-    "Professional Nap Consultant",
-    "Digital Nomad",
     "YouTube Creator",
     "Serial Entrepreneur",
-    "Full-Time Problem Solver"
+    "Professional Problem Solver",
+    "Footballer",
+    "Music Artist",
+    "Film Director",
+    "Professional Gamer",
+    "Real Estate Investor",
+    "Fashion Designer",
+    "Digital Nomad",
+    "CEO of a company you started in your bedroom",
+    "Professional Nap Consultant",
+    "Full-time Food Critic",
+    "Agbero",
+    "Uber Driver with 5-star ratings",
+    "Professional Influencer",
+    "Motivational Speaker",
+    "Family Business Manager",
+    "Unemployed but somehow always outside",
+    "CEO of a company with exactly 3 employees",
+    "YouTube Comment Section Manager",
+    "Professional Party Attendee",
+    "Online Vendor",
+    "Someone's mysterious rich uncle"
 
 ];
 
+
+// ==========================================
+// WEALTH
+// ==========================================
+
+const wealthValues = [
+
+    0,
+    240,
+    1200,
+    5800,
+    15000,
+    42000,
+    87000,
+    150000,
+    280000,
+    450000,
+    720000,
+    1200000,
+    2500000,
+    4800000,
+    7500000,
+    12000000,
+    28000000,
+    50000000,
+    120000000,
+    350000000,
+    800000000,
+    1500000000
+
+];
+
+
+const wealthDescriptions = {
+
+    0: "Your biggest asset is vibes.",
+    240: "Financial analysts have asked you to relax.",
+    1200: "You're surviving through pure determination.",
+    5800: "Not rich, but the future is still loading.",
+    15000: "You're doing surprisingly okay.",
+    42000: "You can breathe a little.",
+    87000: "Money is beginning to respect you.",
+    150000: "You're officially comfortable.",
+    280000: "People have started asking what you do.",
+    450000: "Your bank account is looking healthy.",
+    720000: "You are becoming financially dangerous.",
+    1200000: "You can finally say 'don't worry, I got it.'",
+    2500000: "You have entered serious money territory.",
+    4800000: "Your childhood dreams are getting expensive.",
+    7500000: "People suddenly remember your number.",
+    12000000: "You're buying things without checking the price.",
+    28000000: "Your accountant is now your best friend.",
+    50000000: "You have entered another tax bracket.",
+    120000000: "You are officially somebody's financial goal.",
+    350000000: "Your money has started making money.",
+    800000000: "You don't ask how much anymore.",
+    1500000000: "Congratulations. Even your calculator is tired."
+
+};
+
+
+// ==========================================
+// HOMES
+// ==========================================
 
 const homes = [
 
-    "A 4-bedroom mansion in Lekki",
+    "A 4-bedroom mansion in Lagos",
     "A beautiful house in Abuja",
+    "A luxury penthouse",
     "A smart home with more gadgets than furniture",
-    "A luxury apartment with an unnecessarily large TV",
-    "A quiet beach house",
-    "A surprisingly beautiful house your parents will brag about"
+    "A peaceful beach house",
+    "A massive family mansion",
+    "A modern apartment overlooking the city",
+    "A house with a swimming pool nobody uses",
+    "A quiet suburban home",
+    "A tiny apartment you absolutely love",
+    "Your parents' house",
+    "A rented apartment because rent won",
+    "A surprisingly beautiful house you bought randomly",
+    "A house with one room permanently dedicated to snacks",
+    "A mansion you only visit twice a year",
+    "You somehow own three houses and still complain about rent"
 
 ];
 
+
+// ==========================================
+// CARS
+// ==========================================
 
 const cars = [
 
     "Mercedes-Benz GLE",
-    "Toyota Highlander",
     "Range Rover Sport",
-    "Tesla Model 3",
-    "Lexus RX",
+    "G-Wagon",
     "Toyota Prado",
+    "Lexus RX",
+    "Tesla Model 3",
+    "Toyota Highlander",
+    "Porsche Cayenne",
+    "BMW X6",
     "A very clean 2007 Corolla",
-    "A car you bought because the fuel consumption is okay"
+    "A motorcycle",
+    "Keke",
+    "Uber",
+    "Your friend's car",
+    "A car you bought because fuel consumption is okay",
+    "A car with one stubborn door",
+    "You don't own a car but know every Bolt driver around you"
 
 ];
 
+
+// ==========================================
+// LOVE
+// ==========================================
 
 const loveStatuses = [
 
@@ -381,13 +485,26 @@ const loveStatuses = [
     "Deeply in love",
     "Married your best friend",
     "In a relationship that survived everything",
-    "Single by choice... allegedly",
     "Single and enjoying premium peace",
+    "Single by choice... allegedly",
     "Currently avoiding relationship stress",
-    "Married after saying you would never marry"
+    "Married after saying you would never marry",
+    "In a serious relationship",
+    "Dating someone you met completely by accident",
+    "Your ex comes back",
+    "You become everyone's relationship adviser while being single",
+    "Situationship champion",
+    "You fall in love unexpectedly",
+    "You decide love is a scam",
+    "You get married and immediately miss being single",
+    "You remain single and disturb absolutely nobody"
 
 ];
 
+
+// ==========================================
+// TRAVEL
+// ==========================================
 
 const travelDestinations = [
 
@@ -398,26 +515,63 @@ const travelDestinations = [
     "Tokyo",
     "Cape Town",
     "Santorini",
-    "Canada"
+    "Canada",
+    "Ghana",
+    "Kenya",
+    "South Africa",
+    "Turkey",
+    "Rwanda",
+    "Morocco",
+    "You mostly travel between Lagos and your hometown",
+    "You've seen 17 countries",
+    "You've travelled once and still talk about it every Christmas"
 
 ];
 
+
+// ==========================================
+// RANDOM EVENTS
+// ==========================================
 
 const randomEvents = [
 
-    "You randomly become famous on the internet",
-    "You accidentally start a business that becomes huge",
-    "Someone you helped years ago changes your life",
-    "You move to another city and completely restart your life",
-    "You buy something expensive just because you can",
-    "You become the friend everyone calls for advice",
-    "You disappear for 6 months and return suspiciously successful",
-    "You become rich and suddenly everyone remembers your name",
-    "You accidentally become an influencer",
-    "One crazy decision completely changes your life"
+    "You randomly become famous on the internet.",
+    "You accidentally start a business that becomes huge.",
+    "Someone you helped years ago changes your life.",
+    "You move to another city and completely restart your life.",
+    "You buy something expensive just because you can.",
+    "You become the friend everyone calls for advice.",
+    "You disappear for 6 months and return suspiciously successful.",
+    "You become rich and suddenly everyone remembers your name.",
+    "You accidentally become an influencer.",
+    "One crazy decision completely changes your life.",
+    "You become famous for saying something completely ridiculous.",
+    "You start a business because you were bored.",
+    "You win money from something you almost didn't enter.",
+    "Your random side hustle becomes your main career.",
+    "You become the family's unofficial financial adviser.",
+    "You go viral for arguing with someone online.",
+    "You accidentally become someone's celebrity crush.",
+    "You move abroad and immediately miss Nigerian food.",
+    "You become successful but still complain about transport.",
+    "You become rich enough to stop checking food prices.",
+    "You get a random opportunity that changes everything.",
+    "You become known for something you never planned to do.",
+    "You meet someone who completely changes your life.",
+    "You become successful after everyone thought you were joking.",
+    "You accidentally become a meme.",
+    "You buy your dream house and immediately start complaining about maintenance.",
+    "You make one decision at 2AM that changes your entire career.",
+    "You become the rich friend everyone suddenly remembers.",
+    "You somehow survive a terrible financial decision.",
+    "You spend six months saying 'next month I'll start' before actually starting."
 
 ];
 
+
+// ==========================================
+// KIDS
+// ==========================================
 
 const kidDescriptions = [
 
@@ -428,23 +582,11 @@ const kidDescriptions = [
     "children who will finish your data subscription",
     "future footballers",
     "future engineers",
-    "future comedians"
-
-];
-
-
-const wealthValues = [
-
-    42.8,
-    67.4,
-    91.6,
-    128.3,
-    184.7,
-    284.7,
-    347.8,
-    512.6,
-    728.4,
-    950.2
+    "future comedians",
+    "professional snack thieves",
+    "children who will ask for money every weekend",
+    "little geniuses",
+    "walking sources of noise"
 
 ];
 
@@ -458,18 +600,14 @@ function showSingleResults() {
     const wealth =
         pick(wealthValues);
 
-
     const age =
-        Math.floor(Math.random() * 8) + 25;
-
+        Math.floor(Math.random() * 16) + 24;
 
     const kids =
-        Math.floor(Math.random() * 7);
-
+        Math.floor(Math.random() * 9);
 
     const countries =
-        Math.floor(Math.random() * 15) + 3;
-
+        Math.floor(Math.random() * 20) + 1;
 
     const career =
         pick(careers);
@@ -488,6 +626,35 @@ function showSingleResults() {
 
     const randomEvent =
         pick(randomEvents);
+
+    const wealthDescription =
+        wealthDescriptions[wealth];
+
+
+    const destinyScore =
+        Math.floor(Math.random() * 101);
+
+
+    currentPrediction = {
+
+        type: "single",
+
+        name: currentUser,
+
+        career,
+        wealth,
+        wealthDescription,
+        home,
+        car,
+        love,
+        age,
+        kids,
+        countries,
+        travel,
+        randomEvent,
+        destinyScore
+
+    };
 
 
     gameContent.innerHTML = `
@@ -517,11 +684,11 @@ function showSingleResults() {
                 <div class="result-card career-card">
 
                     <div class="card-label">
-                        Career
+                        💼 Career
                     </div>
 
                     <strong>
-                        ${career}
+                        ${escapeHTML(career)}
                     </strong>
 
                 </div>
@@ -530,12 +697,16 @@ function showSingleResults() {
                 <div class="result-card money-card">
 
                     <div class="card-label">
-                        Future Wealth
+                        💰 Future Net Worth
                     </div>
 
                     <strong>
-                        $${wealth}M
+                        $${formatMoney(wealth)}
                     </strong>
+
+                    <span class="card-detail">
+                        ${escapeHTML(wealthDescription)}
+                    </span>
 
                 </div>
 
@@ -543,11 +714,11 @@ function showSingleResults() {
                 <div class="result-card home-card">
 
                     <div class="card-label">
-                        Future Home
+                        🏠 Future Home
                     </div>
 
                     <strong>
-                        ${home}
+                        ${escapeHTML(home)}
                     </strong>
 
                 </div>
@@ -556,11 +727,11 @@ function showSingleResults() {
                 <div class="result-card car-card">
 
                     <div class="card-label">
-                        Future Ride
+                        🚗 Future Ride
                     </div>
 
                     <strong>
-                        ${car}
+                        ${escapeHTML(car)}
                     </strong>
 
                 </div>
@@ -569,11 +740,11 @@ function showSingleResults() {
                 <div class="result-card love-card">
 
                     <div class="card-label">
-                        Love Life
+                        ❤️ Love Life
                     </div>
 
                     <strong>
-                        ${love}
+                        ${escapeHTML(love)}
                     </strong>
 
                     <span class="card-detail">
@@ -586,7 +757,7 @@ function showSingleResults() {
                 <div class="result-card kids-card">
 
                     <div class="card-label">
-                        Future Children
+                        👶 Future Children
                     </div>
 
                     <strong>
@@ -609,7 +780,7 @@ function showSingleResults() {
                 <div class="result-card travel-card">
 
                     <div class="card-label">
-                        Travel
+                        ✈️ Travel
                     </div>
 
                     <strong>
@@ -617,7 +788,7 @@ function showSingleResults() {
                     </strong>
 
                     <span class="card-detail">
-                        First big trip: ${travel}
+                        First big trip: ${escapeHTML(travel)}
                     </span>
 
                 </div>
@@ -626,11 +797,11 @@ function showSingleResults() {
                 <div class="result-card twist-card">
 
                     <div class="card-label">
-                        Plot Twist
+                        😂 Plot Twist
                     </div>
 
                     <strong>
-                        ${randomEvent}
+                        ${escapeHTML(randomEvent)}
                     </strong>
 
                 </div>
@@ -655,7 +826,7 @@ function showSingleResults() {
 
                 <strong>
 
-                    ${Math.floor(Math.random() * 21) + 80}
+                    ${destinyScore}
 
                     <small>
                         /100
@@ -714,7 +885,12 @@ const coupleLove = [
     "You survive enough plot twists to deserve a Netflix series.",
     "One of you is definitely the stubborn one.",
     "You somehow turn chaos into a beautiful relationship.",
-    "You become best friends who happen to be married."
+    "You become best friends who happen to be married.",
+    "You become that couple who posts each other every birthday.",
+    "You stay together mostly because neither of you wants to start over.",
+    "You break up three times and somehow still get married.",
+    "You become the couple everyone calls for relationship advice.",
+    "You spend half your relationship saying 'I'm not angry.'"
 
 ];
 
@@ -725,7 +901,12 @@ const coupleHomes = [
     "A modern smart home",
     "A beautiful house in Lagos",
     "A peaceful family home outside the city",
-    "A luxury apartment before upgrading to a mansion"
+    "A luxury apartment before upgrading to a mansion",
+    "A beach house you barely visit",
+    "A normal apartment that somehow feels like home",
+    "Your parents' house temporarily becomes your headquarters",
+    "A mansion with one room dedicated entirely to shoes",
+    "A rented apartment because you spent the house money travelling"
 
 ];
 
@@ -736,20 +917,33 @@ const coupleCars = [
     "Range Rover + Lexus RX",
     "Tesla + Toyota Prado",
     "Two very clean SUVs",
-    "One expensive car and one very reliable Corolla"
+    "One expensive car and one very reliable Corolla",
+    "A G-Wagon + a car neither of you remembers buying",
+    "One car because you both hate driving",
+    "Two motorcycles because why not",
+    "A Corolla + unlimited Bolt",
+    "One person drives while the other gives terrible directions"
 
 ];
 
 
 const coupleTwists = [
 
-    "You randomly move to another country together",
-    "One of you starts a business that becomes huge",
-    "You become the couple that travels every holiday",
-    "You buy your dream house earlier than expected",
-    "Your first major argument is somehow about interior decoration",
-    "You become financially comfortable enough to stop checking food prices",
-    "Your children become more famous than both of you"
+    "You randomly move to another country together.",
+    "One of you starts a business that becomes huge.",
+    "You become the couple that travels every holiday.",
+    "You buy your dream house earlier than expected.",
+    "Your first major argument is somehow about interior decoration.",
+    "You become financially comfortable enough to stop checking food prices.",
+    "Your children become more famous than both of you.",
+    "You accidentally become a viral couple online.",
+    "One of you becomes rich and the other immediately becomes the family's accountant.",
+    "You spend your anniversary arguing about where to eat.",
+    "You become the couple everyone asks for money.",
+    "You somehow survive a joint business venture.",
+    "You both become successful in completely different industries.",
+    "You buy something extremely expensive and immediately regret it.",
+    "You stay together purely because breaking up would require too much explanation."
 
 ];
 
@@ -761,27 +955,39 @@ const coupleTwists = [
 function showCoupleResults() {
 
     const compatibility =
-        Math.floor(Math.random() * 16) + 84;
+        Math.floor(Math.random() * 101);
 
 
     const kids =
-        Math.floor(Math.random() * 6) + 1;
+        Math.floor(Math.random() * 8);
 
 
     const marriageYear =
         new Date().getFullYear() +
-        Math.floor(Math.random() * 7) + 1;
+        Math.floor(Math.random() * 10) + 1;
+
+
+    const coupleWealthValues = [
+
+        12000,
+        45000,
+        85000,
+        150000,
+        320000,
+        750000,
+        1200000,
+        2800000,
+        7500000,
+        15000000,
+        42000000,
+        120000000,
+        500000000
+
+    ];
 
 
     const wealth =
-        pick([
-            96.4,
-            128.7,
-            214.5,
-            347.8,
-            482.3,
-            675.9
-        ]);
+        pick(coupleWealthValues);
 
 
     const love =
@@ -795,6 +1001,33 @@ function showCoupleResults() {
 
     const twist =
         pick(coupleTwists);
+
+
+    currentPrediction = {
+
+        type: "couple",
+
+        name: currentUser,
+
+        partner: currentPartner,
+
+        compatibility,
+
+        kids,
+
+        marriageYear,
+
+        wealth,
+
+        love,
+
+        home,
+
+        car,
+
+        twist
+
+    };
 
 
     gameContent.innerHTML = `
@@ -854,7 +1087,7 @@ function showCoupleResults() {
                 <div class="result-card love-card">
 
                     <div class="card-label">
-                        Marriage
+                        💍 Marriage
                     </div>
 
                     <strong>
@@ -862,7 +1095,7 @@ function showCoupleResults() {
                     </strong>
 
                     <span class="card-detail">
-                        ${love}
+                        ${escapeHTML(love)}
                     </span>
 
                 </div>
@@ -871,7 +1104,7 @@ function showCoupleResults() {
                 <div class="result-card kids-card">
 
                     <div class="card-label">
-                        Future Children
+                        👶 Future Children
                     </div>
 
                     <strong>
@@ -879,7 +1112,13 @@ function showCoupleResults() {
                     </strong>
 
                     <span class="card-detail">
-                        ${kids} ${pick(kidDescriptions)}
+
+                        ${
+                            kids === 0
+                                ? "Peace and quiet forever."
+                                : kids + " " + pick(kidDescriptions)
+                        }
+
                     </span>
 
                 </div>
@@ -888,11 +1127,11 @@ function showCoupleResults() {
                 <div class="result-card money-card">
 
                     <div class="card-label">
-                        Combined Wealth
+                        💰 Combined Net Worth
                     </div>
 
                     <strong>
-                        $${wealth}M
+                        $${formatMoney(wealth)}
                     </strong>
 
                 </div>
@@ -901,11 +1140,11 @@ function showCoupleResults() {
                 <div class="result-card home-card">
 
                     <div class="card-label">
-                        Future Home
+                        🏠 Future Home
                     </div>
 
                     <strong>
-                        ${home}
+                        ${escapeHTML(home)}
                     </strong>
 
                 </div>
@@ -914,11 +1153,11 @@ function showCoupleResults() {
                 <div class="result-card car-card">
 
                     <div class="card-label">
-                        Future Garage
+                        🚗 Future Garage
                     </div>
 
                     <strong>
-                        ${car}
+                        ${escapeHTML(car)}
                     </strong>
 
                 </div>
@@ -927,11 +1166,11 @@ function showCoupleResults() {
                 <div class="result-card twist-card">
 
                     <div class="card-label">
-                        Relationship Plot Twist
+                        😂 Relationship Plot Twist
                     </div>
 
                     <strong>
-                        ${twist}
+                        ${escapeHTML(twist)}
                     </strong>
 
                 </div>
@@ -957,7 +1196,7 @@ function showCoupleResults() {
 
                 <strong>
 
-                    ${Math.floor(Math.random() * 11) + 90}
+                    ${Math.floor(Math.random() * 101)}
 
                     <small>
                         /100
@@ -969,7 +1208,6 @@ function showCoupleResults() {
 
 
             <div class="result-actions">
-
 
                 <button
                     type="button"
@@ -996,7 +1234,6 @@ function showCoupleResults() {
                 >
                     Share My Future
                 </button>
-
 
             </div>
 
@@ -1027,7 +1264,7 @@ async function shareFuture() {
 
     const shareText = `
 
-WHAT HAPPENS NEXT?
+WHAT HAPPENS NEXT? 🔮
 
 ${resultText}
 
@@ -1045,7 +1282,7 @@ ${window.location.href}
 
             await navigator.share({
 
-                title: "What Happens Next?",
+                title: "What Happens Next? 🔮",
 
                 text: shareText.trim()
 
@@ -1058,7 +1295,7 @@ ${window.location.href}
             );
 
             alert(
-                "Your future has been copied!"
+                "Your future has been copied! 😂"
             );
 
         }
@@ -1198,6 +1435,17 @@ function wait(ms) {
         setTimeout(resolve, ms);
 
     });
+
+}
+
+
+function formatMoney(value) {
+
+    return new Intl.NumberFormat("en-US", {
+
+        maximumFractionDigits: 0
+
+    }).format(value);
 
 }
 
